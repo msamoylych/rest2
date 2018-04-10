@@ -103,6 +103,11 @@ public class ApplicationTest {
         for (Future<?> future : list) {
             future.get();
         }
+
+        mockMvc.perform(post("/account/2/transfer")
+                .content(transfer(3L, "0.1"))
+                .contentType(CONTENT_TYPE))
+                .andExpect(status().isUnprocessableEntity());
     }
 
     private String amount(String amount) {
